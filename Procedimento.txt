@@ -154,5 +154,17 @@
 # INSTALAR BASE-DEVEL PARA TER O MAKEPKG
     pacman -S base-devel
 
+# INSTALAR ZSH
+    pacman -S zsh
 
+# INSTALAR O OH-MY-ZSH
+    git clone https://aur.archlinux.org/oh-my-zsh-git.git
+    cd oh-my-zsh-git
+    makepkg -si
+
+# CONFIGURAR O OH-MY-ZSH COMO TEMA
+    cp /usr/share/oh-my-zsh/zshrc ~/.zshrc
+
+# DEFINIR ZSH COMO PADRÃO
+    chsh -s /bin/zsh
 
