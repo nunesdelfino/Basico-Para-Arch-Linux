@@ -1,0 +1,159 @@
+/// PROCEDIMENTO PARA INSTALAR O ARCH LINUX BÁSICO
+/// SEM INTERFACE GRÁFICA
+
+/// Procedimento feito por
+/// Gabriel Nunes Delfino
+/// E-Mail: ti.gabrieldelfino@gmail.com
+/// GitHub: nunesdelfino
+
+/// SE FOR INSTALAR EM UM VM NO VIRTUALBOX CONSIDERE MODO BIOS
+
+/// NÃO CONSIDERE AS " COMO PARTE DO COMANDO
+
+# CONFIGURANDO PADRÃO DO TECLADO
+    # USANDO O ABNT2
+        loadkeys br-abnt2
+
+# CRIANDO PARTIÇÕES
+    # NESSE EXEMPLO SIGO COM AS PARTIÇÕES:
+        /boot
+        /home
+        /
+        swap
+    # TENTO EM VISTA O DISCO SENDO O /dev/sda
+        fdisk /dev/sda
+
+        -- Na tela que abrir use:
+            n - Para criar uma nova partição
+            p - Para ser primaria
+            Enter
+            Enter
+            # O PADRÃO É +"TAMANHO"X
+            # ONDE NO LUGAR DE X VOCÊ VAI COLOCAR
+            M - Para MegaByte
+            G - Para GigaByte
+            # EXEMPLO
+            +512M - boot
+            +8192G - swap
+            +40G - /
+            +150G - /home
+            # VOCÊ PODE DAR ENTER NO ULTIMO PARA USAR O RESTANTE DO ESPAÇO
+            t - Para mudar o tipo da partição
+            2 - Número da partição a mudar o tipo, nesse cado foi a 2
+            82 - Para o código para mudar o tipo da partição para SWAP
+            w - Para salvar o que foi feito
+
+# FORMATANDO AS PARTIÇÕES
+    # SE FOR INSTALAR EM MODO BIOS
+        mkfs.ext4 /dev/sda1
+    # SE FOR INSTALAR EM MODO UEFI
+        mkfs.fat -F32 /dev/sda1
+    mkfs.ext4 /dev/sda3
+    mkfs.ext4 /dev/sda4
+    mkswap /dev/sda2
+
+# MONTANDO AS PARTIÇÕES PARA COMEÇAR A INSTALAÇÃO DO SISTEMA
+    # PRIMEIRO DEVE MONTAR A PARTIÇÃO PARA O /
+        mount /dev/sda3 /mnt
+    # AGORA CRIE AS PASTAS PARA AS PARTIÇÕES /boot E /home
+    # CASO TIVESSE CRIADO OUTRA PARTIÇÃO, CRIARIA A PASTA TAMBÉM
+    
+    mkdir /mnt/boot
+
+    # SE FOR EM MODO UEFI CRIE A /efi
+    mkdir /mnt/boot/efi
+
+    # AGORA MONTE AS PARTIÇÕES
+        # SE FOR BIOS
+            mount /dev/sda1 /mnt/boot
+        # SE FOR UEFI
+            mount /dev/sda1 /mnt/boot/efi
+    mount /dev/sda4 /mnt/home
+
+# ATIVANDO A SWAP
+    swapon /dev/sda2
+
+### ESSE PASSO É OPCIONAL ###
+    # CASO QUEIRA ESCOLHER O SERVIDOR BRASILERIO PARA
+    # DOWNLOAD DO SISTEMA
+    # ENTRE EM nano /etc/pacman.d/mirrorlist
+    # E ENCONTRE O SERVIDOR BRASILERIO APÓS BRAZIL
+    # E O COLOQUE EM PRIMEIRO LUGAR
+
+# INSTALANDO PACOTES ESSENCIAIS PARA O SISTEMA
+    pacstrap /mnt base linux linux-firmware
+
+# CRIANDO O FSTAB
+    genfstab -U /mnt >> /mnt/etc/fstab
+
+# FAZENDO O /mnt VIRAR O / PARA CONFIGURAR O SISTEMA
+    arch-chroot /mnt
+
+
+
+# A PARTIR DE AGORA VOCÊS ESTÁ NO SEU FUTURO SISTEMA
+# TUDO QUE FIZER AQUI VAI REFLETIR NO SISTEMA FINAL
+# O SISTEMA VEM LIMPO, SEM NADA ALÉM DO NECESSÁRIO
+
+# INSTALANDO UM EDITOR DE TEXTO A ESCOLHA, VOU USAR O NANO
+    pacman -S nano
+
+# CONFIGURANDO PADRÃO DO TECLADO DO SISTEMA
+    # USANDO O ABNT2
+        echo "KEYMAP=br-abnt2" >> /etc/vconsole.conf
+
+# CONFIGURANDO O NOME DO COMPUTADOR
+    echo "NOME DESEJADO" >> /etc/hostname
+
+# CONFIGURANDO O DNS INTERNO
+    nano /etc/hosts
+        # HOSTNAME É O NOME DEFINIDO NO PASSO ANTERIOR
+        # ADICIONE NO FINAL DO ARQUIVO
+            127.0.0.1   localhost
+            ::1         localhost
+            127.0.0.1   "HOSTNAME".localhost    "HOSTNAME"
+
+# CONFIGURANDO A SENHA DO ROOT
+    passwd
+
+# CRIANDO P INITRAMFS
+    mkinittcpio -P
+
+# INSTALANDO O PACOTE DO GRUB
+    # SE FOR BIOS
+        pacman -S grub
+    # SE FOR UEFI
+        pacman -S grub-efi-x86_64 efibootmgr
+
+# INSTALANDO O GRUB NO BOOT
+    # SE FOR BIOS
+        grub-install --target=i386-pc /dev/sda
+    # SE FOR UEFI
+        grub-install --target=x86_64-efi --efi-directory=/boot/efi  --bootloader-id=grub_uefi --recheck
+
+# SE FOR INSTALAÇÃO EM MODO UEFI FAÇA ESSE PASSO
+    cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+    -- SE DER ERRO DA PASTA NÃO EXISTIR, CRIE ELA
+        mkdir /boot/grub/locale -- SE A LOCALE NÃO EXISTIR
+        mkdir /boot/grub/locale/en.mo
+    # REPITA O COMANDO
+        cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+
+# CRIANDO O ARQUIVO DE CONFIGURAÇÃO DO GRUB
+    grub-mkconfig -o /boot/grub/grub.cfg
+
+# O SISTEMA JÁ ESTÁ INSTALADO COMPLETAMENTE NESSE PONTO
+# PORÉM PARA NÃO DIFICULTAR A VIDA, VAMOS INSTALAR UMAS COISAS
+
+# INSTALANDO O GERENCIADOR DE REDE
+    pacman -S networkmanager
+
+# HABILITANDO O GERENCIADOR DE REDE PARA INICIAR NO BOOT
+    systemctl enable NetworkManager
+
+# INSTALANDO PACOTE PARA O WIFI
+    pacman -S wpa_supplicant wireless_tools
+
+# INSTALANDO O SUDO
+    pacman -S sudo
+
