@@ -1,0 +1,41 @@
+/// PROCEDIMENTO PARA INSTALAR A INTERFACE GRÁFICA NO ARCH LINUX
+
+/// Procedimento feito por
+/// Gabriel Nunes Delfino
+/// E-Mail: ti.gabrieldelfino@gmail.com
+/// GitHub: nunesdelfino
+
+/// NÃO CONSIDERE AS " COMO PARTE DO COMANDO
+
+# NESSE CASO VOU USAR O GNOME COMO EXEMPLO
+
+# INSTALANDO O XORG-SERVER
+    pacman -S xorg-server
+
+# INSTALANDO O GDM PARA TELA DE LOGIN
+    pacman -S gdm
+
+# CONFIGURANDO O GDM PARA INICIAR NO BOOT
+    systemctl enable gdm
+
+# INSTALANDO DRIVER DE VÍDEO
+    # INTEL
+        pacman -S xf86-video-intel libgl mesa
+    # NVIDIA
+        pacman -S nvidia nvidia-libgl mesa
+    # AMD
+        pacman -S mesa xf86-video-amdgpu
+    # VIRTUALBOX
+        pacman -S virtualbox-guest-utils virtualbox-guest-modules-arch mesa mesa-libgl
+    
+# INSTALANDO O GNOME
+    pacman -S gnome
+    # NESSE MOMENTO VOCÊ TERÁ A OPÇÃO DE INSTALAR TUDO DO GNOME
+    # OU SELECIONAR APENAS AQUILO QUE ACHAR MAIS NECESSÁRIO
+        -- Para instalar tudo apenas de Enter
+        -- Para instalar o necessário digite os número podem ser um unico
+        número Exemplo: 1 ou Vários de uma vez, podem ser isolados ou por intervalo
+        Exemplo: 1 2 3 4-9
+        -- Para instalar apenas o necessário para a interface gráfica:
+            7 31-33 36 
+
