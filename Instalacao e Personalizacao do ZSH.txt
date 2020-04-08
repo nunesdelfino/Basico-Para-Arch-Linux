@@ -1,0 +1,28 @@
+/// PROCEDIMENTO PARA INSTALAR O ZSH NO ARCH LINUX
+
+/// Procedimento feito por
+/// Gabriel Nunes Delfino
+/// E-Mail: ti.gabrieldelfino@gmail.com
+/// GitHub: nunesdelfino
+
+/// NÃO CONSIDERE AS " COMO PARTE DO COMANDO
+
+/// USE SEMPRE O SUDO SE NÃO FOR O USUÁRIO ROOT
+/// SE FOR O USUÁRIO ROOT IGNORE O SUDO
+
+# INSTALANDO O ZSH
+    sudo pacman -S zsh
+
+# INSTALANDO O OH-MY-ZSH
+    git clone https://aur.archlinux.org/oh-my-zsh-git.git
+    cd oh-my-zsh-git
+    makepkg -si
+
+# CONFIGURAR O OH-MY-ZSH COM TEMA
+    cp /usr/share/oh-my-zsh/zshrc ~/.zshrc
+    # VEJA MAIS SOBRE NO REPOSITÓRIO OFICIAL
+    /// https://github.com/ohmyzsh/ohmyzsh
+
+# TONANDO O ZSH COMO PADRÃO NO LUGAR DO BASH
+    chsh -s /bin/zsh
+    -- Reinicie a sessão
