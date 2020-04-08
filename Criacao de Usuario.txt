@@ -1,0 +1,25 @@
+/// PROCEDIMENTO PARA ADICIONAR UM USUÁRIO NO ARCH LINUX
+
+/// Procedimento feito por
+/// Gabriel Nunes Delfino
+/// E-Mail: ti.gabrieldelfino@gmail.com
+/// GitHub: nunesdelfino
+
+/// NÃO CONSIDERE AS " COMO PARTE DO COMANDO
+
+# CRIANDO UM USUÁRIO VIA TERMINAL
+    useradd -m "NOME DO USUÁRIO"
+    passwd "NOME DO USUÁRIO"
+
+# ADICIONANDO USUÁRIO NO SUDO
+    nano /etc/sudoers
+        -- Desça até acha o usuário root e abaixo dele adicone
+        "NOME DO USUÁRIO" ALL=(ALL) ALL
+
+# INSTALANDO O PACOTE PARA GERAR AS PASTAS BASES DO USUÁRIO
+    pacman -S xdg-user-dirs
+
+# EFETUE O LOGIN COMO O NOVO USUÁRIO
+
+# GERANDO AS PASTAS BASE DO USUÁRIO
+    xdg-user-dirs-update
