@@ -1,0 +1,33 @@
+/// MANUAL BÁSICO PARA O PACMAN
+/// GERENCIADOR DE PACOTES DO ARCH LINUX
+
+/// Documento feito por
+/// Gabriel Nunes Delfino
+/// E-Mail: ti.gabrieldelfino@gmail.com
+/// GitHub: nunesdelfino
+
+# COMANDO PARA INSTALAR UM PACOTE
+    pacman -S NOME_DO_PACOTE
+    pacman -S NOME_DO_PACOTE1 NOME_DO_PACOTE2
+
+# COMANDO PARA REMOVER PACOTES
+    -- Removendo um unico pacote
+        pacman -R NOME_DO_PACOTE
+    -- Removendo o pacote e suas e suas dependencias
+    Não exigidas por outro pacote (recomendado)
+        pacman -Rs NOME_DO_PACOTE
+    -- Removendo um pacote e todos os pacotes que dependem dele
+    Só execute isso se realmente saber o que está fazendo
+        pacman -Rsc NOME_DO_PACOTE
+    
+# ATUALIZANDO  PACOTES
+    pacman -Syu
+
+# CONSULTANDO BASE DE DADOS DE PACOTES
+    -- Procura pelo nome e descrição
+        pacman -Ss PALAVRA
+    -- Procura por pacotes já instalados
+        pacman -Qs PALAVRA
+    -- Procura infromações sobre um determinado pacote
+        pacman -Si NOME_DO_PACOTE
+    
