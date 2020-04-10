@@ -30,4 +30,6 @@
         pacman -Qs PALAVRA
     -- Procura infromações sobre um determinado pacote
         pacman -Si NOME_DO_PACOTE
-    
+
+# PARA MAIS INFORMAÇÕES
+// https://wiki.archlinux.org/index.php/Pacman_(Portugu%C3%AAs)
