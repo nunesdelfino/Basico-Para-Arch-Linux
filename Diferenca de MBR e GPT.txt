@@ -1,0 +1,21 @@
+/// DOCUMENTO PARA EXPLICAR A DIFERENÇA
+/// ENTRE TABELA DE PARTIÇÃO MBR E GPT
+
+/// Documento feito por
+/// Gabriel Nunes Delfino
+/// E-Mail: ti.gabrieldelfino@gmail.com
+/// GitHub: nunesdelfino
+
+# MBR - MASTER BOOT MANAGER
+    -- Limita o particionamento a 4 Partiçoẽs primárias
+    -- Partições com limite de 2TB
+    -- Se corromper a partição de inicialização, seu computador
+        Fica impossibilitado de iniciar o sistema
+    -- Usa BIOS para iniciar
+
+# GPT - GUID PARTITION TABLE
+    -- Limita o particionamento a 128 Partiçoẽs
+    -- Partiçoẽs com limite de 9,4ZB(1 Trilhão de GB)
+    -- Se corromper a partição de inicialização, o sistema tem backup
+        Em outros locais do disco para recuperar os dados
+    -- Usa UEFI para iniciar
