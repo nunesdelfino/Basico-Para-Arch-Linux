@@ -1,0 +1,21 @@
+/// DOCUMENTO PARA EXPLICAR A DIFERENÇA
+/// ENTRE BIOS (BIOS Legacy) E UEFI
+
+/// Documento feito por
+/// Gabriel Nunes Delfino
+/// E-Mail: ti.gabrieldelfino@gmail.com
+/// GitHub: nunesdelfino
+
+# BIOS - BASIC INPUT/OUTPUT SYSTEM
+    -- Usa sistema de tabela de partição MBR
+    -- Não aceita UEFI
+    OBS: Normalmente é a usadas no VirtualBox
+
+# UEFI - UNIFIED EXTENSIBLE FIRMWARE INTERFACE
+    -- Usa sistema de tabela de partição GPT
+    -- Inicialização mais rápida
+    -- Inicializa discos com mais de 2TB
+    -- Interface Gráfica mais Avançada
+    -- Inicialização Segura, evita Malware e Rootkits
+        Que operam no Pré-Boot
+    -- Requer um partição separada
