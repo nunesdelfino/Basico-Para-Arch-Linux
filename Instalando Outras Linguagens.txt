@@ -1,0 +1,23 @@
+/// PROCEDIMENTO PARA ADICIONAR LINGUAGENS NO ARCH LINUX
+
+/// Procedimento feito por
+/// Gabriel Nunes Delfino
+/// E-Mail: ti.gabrieldelfino@gmail.com
+/// GitHub: nunesdelfino
+
+# ESCOLHENDO AS LINGUAGENS
+    # ENTRE NO ARQUIVO /etc/locale.gen E DESCOMENTE A LINHA DA LINGUAGEM QUE VOCÊ QUER
+        nano /etc/locale.gen
+
+# EXEMPLO DE LINGUAGENS
+    pt_BR.UTF-8 UTF-8 - Português Brasil
+    en_US.UTF-8 UTF-8 - Inglês Estados Unidos
+
+# AGORA EXECUTE O COMANDO
+    locale-gen
+
+# AGORA É SÓ ENTRAR NAS CONFIGURAÇÕES E ESCOLHER A NOVA LINGUAGEM
+# OU ALTERE NO ARQUIVO /etc/locale.conf
+    LANG=LINGUAGEM
+        -- No caso LINGUAGEM seria
+            pt_BR.UTF-8 ou en_US.UTF-8
