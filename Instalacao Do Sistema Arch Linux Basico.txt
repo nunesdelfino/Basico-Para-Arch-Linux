@@ -24,9 +24,10 @@
         fdisk /dev/sda
 
         -- Na tela que abrir use:
+            g - Para criar uma tabela em modo GPT se assim quiser
             n - Para criar uma nova partição
             p - Para ser primaria
-            Enter
+            Enter 
             Enter
             # O PADRÃO É +"TAMANHO"X
             # ONDE NO LUGAR DE X VOCÊ VAI COLOCAR
@@ -111,7 +112,7 @@
         # ADICIONE NO FINAL DO ARQUIVO
             127.0.0.1   localhost
             ::1         localhost
-            127.0.0.1   "HOSTNAME".localhost    "HOSTNAME"
+            127.0.0.1   "HOSTNAME".localdomain    "HOSTNAME"
 
 # CONFIGURANDO A SENHA DO ROOT
     passwd
